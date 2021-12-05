@@ -15,11 +15,16 @@ public:
 	// Sets default values for this pawn's properties
 	ABasePawn();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
 private:
+	/* "UPROPERTY" takes various arguments to modify variable metadata
+	 * "VisibleAnywhere" and "BluePrintReadOnly" allow the var to be viewed in the project editor and 
+	 * blueprint event graph respectively. "meta" is an object for additional params, "AllowPrivateAccess"
+	 * is a param allowing blueprint event graph access to a private var 
+	 *
+	 * "class" forward declares any class not in #include section, 
+	 * though required to be #included in .cpp file. Minizimes #includes in .h files
+	 */  
+ 
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	class UCapsuleComponent* CapsuleComp;
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
@@ -28,12 +33,4 @@ private:
 	UStaticMeshComponent* TurretMesh;
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	USceneComponent* ProjectileSpawn;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 };

@@ -20,10 +20,20 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* SpringArm;
-	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* Camera;
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, meta = (AllowPrivateAccess = "true"))
+	float MoveSpeed = 200.f;
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, meta = (AllowPrivateAccess = "true"))
+	float TurnSpeed = 50.f;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	APlayerController* PlayerControllerRef;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	class USpringArmComponent* SpringArmRef;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	class UCameraComponent* CameraRef;
+
+	void Move(float MoveInput);
+	void Turn(float TurnInput);
 
 public:	
 	// Called every frame
