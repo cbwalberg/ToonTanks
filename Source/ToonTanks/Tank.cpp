@@ -4,7 +4,6 @@
 #include "Tank.h"
 
 #include "Camera/CameraComponent.h"
-#include "DrawDebugHelpers.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -40,6 +39,8 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
     // "MoveForward" and "Turn" string vals must == vals in Project Settings > Input > Axis Mappings
     PlayerInputComponent -> BindAxis(TEXT("MoveForward"), this, &ATank::Move);
     PlayerInputComponent -> BindAxis(TEXT("Turn"), this, &ATank::Turn);
+
+    PlayerInputComponent -> BindAction(TEXT("Fire"), IE_Pressed, this, &ATank::Fire);
 }
 
 // Called every frame
@@ -55,15 +56,8 @@ void ATank::Tick(float DeltaTime)
         FHitResult OUT_MouseHitResult;
         PlayerControllerRef -> GetHitResultUnderCursor(ECC_Visibility, false, OUT_MouseHitResult);
 
-        // DEV CODE: Visual indication of point where mouse cursor collides with objects on ECC_Visibility channel
-        DrawDebugSphere(
-            GetWorld(), 
-            OUT_MouseHitResult.ImpactPoint,
-            15.f,
-            12,
-            FColor::Red,
-            false
-        );    
+        // RotateTurret() defined in BasePawn
+        RotateTurret(OUT_MouseHitResult.ImpactPoint);  
     }
 
 }

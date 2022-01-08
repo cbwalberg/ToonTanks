@@ -15,6 +15,10 @@ public:
 	// Sets default values for this pawn's properties
 	ABasePawn();
 
+protected:
+	void RotateTurret(FVector LookAtTarget);
+	void Fire();
+
 private:
 	/* "UPROPERTY" takes various arguments to modify variable metadata
 	 * "VisibleAnywhere" and "BluePrintReadOnly" allow the var to be viewed in the project editor and 
