@@ -35,12 +35,4 @@ void ABasePawn::HorizontalRotateTurret() {
 }
 
 void ABasePawn::Fire() {
-	DrawDebugSphere(
-		GetWorld(), 
-		ProjectileSpawn -> GetComponentLocation(), 
-		25.f, 
-		12, 
-		FColor::Red, 
-		false, 
-		3.f
-	); }
+	DrawDebugSphere(GetWorld(), ProjectileSpawn -> GetComponentLocation(), 25.f, 12, FColor::Red, false, 3.f); }

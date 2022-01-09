@@ -31,8 +31,8 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	class UCameraComponent* CameraRef;
 
-	void Move(float MoveInput);
-	void Turn(float TurnInput);
+	void MoveForward(float MoveForwardInput);
+	void MoveRight(float MoveRightInput);
 
 public:	
 	// Called every frame
