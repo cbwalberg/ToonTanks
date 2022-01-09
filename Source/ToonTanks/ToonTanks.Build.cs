@@ -2,10 +2,8 @@
 
 using UnrealBuildTool;
 
-public class ToonTanks : ModuleRules
-{
-	public ToonTanks(ReadOnlyTargetRules Target) : base(Target)
-	{
+public class ToonTanks : ModuleRules {
+	public ToonTanks(ReadOnlyTargetRules Target) : base(Target) {
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
@@ -18,6 +16,5 @@ public class ToonTanks : ModuleRules
 		// Uncomment if you are using online features
 		// PrivateDependencyModuleNames.Add("OnlineSubsystem");
 
-		// To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
-	}
-}
+		// To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true 
+		} }

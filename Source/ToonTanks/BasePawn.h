@@ -7,8 +7,7 @@
 #include "BasePawn.generated.h"
 
 UCLASS()
-class TOONTANKS_API ABasePawn : public APawn
-{
+class TOONTANKS_API ABasePawn : public APawn {
 	GENERATED_BODY()
 
 public:
@@ -17,6 +16,7 @@ public:
 
 protected:
 	void RotateTurret(FVector LookAtTarget);
+	void HorizontalRotateTurret();
 	void Fire();
 
 private:
@@ -36,5 +36,4 @@ private:
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* TurretMesh;
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	USceneComponent* ProjectileSpawn;
-};
+	USceneComponent* ProjectileSpawn; };

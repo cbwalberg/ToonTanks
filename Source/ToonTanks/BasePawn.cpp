@@ -2,13 +2,13 @@
 
 
 #include "BasePawn.h"
+
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "DrawDebugHelpers.h"
 
 // Sets default values
-ABasePawn::ABasePawn()
-{
+ABasePawn::ABasePawn() {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -23,19 +23,18 @@ ABasePawn::ABasePawn()
 	TurretMesh -> SetupAttachment(BaseMesh);
 
 	ProjectileSpawn = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn"));
-	ProjectileSpawn -> SetupAttachment(TurretMesh);
+	ProjectileSpawn -> SetupAttachment(TurretMesh); }
 
-}
-
-void ABasePawn::RotateTurret(FVector LookAtTarget)
-{
+void ABasePawn::RotateTurret(FVector LookAtTarget) {
 	FVector ToTarget = LookAtTarget - TurretMesh -> GetComponentLocation();
 	FRotator LookAtRotation = FRotator(0.f, ToTarget.Rotation().Yaw, 0.f);
-	TurretMesh -> SetWorldRotation(LookAtRotation);
+	TurretMesh -> SetWorldRotation(LookAtRotation); }
+
+void ABasePawn::HorizontalRotateTurret() {
+
 }
 
-void ABasePawn::Fire()
-{
+void ABasePawn::Fire() {
 	DrawDebugSphere(
 		GetWorld(), 
 		ProjectileSpawn -> GetComponentLocation(), 
@@ -44,5 +43,4 @@ void ABasePawn::Fire()
 		FColor::Red, 
 		false, 
 		3.f
-	);
-}
+	); }

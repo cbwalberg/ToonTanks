@@ -10,8 +10,7 @@
  * 
  */
 UCLASS()
-class TOONTANKS_API ATurret : public ABasePawn
-{
+class TOONTANKS_API ATurret : public ABasePawn {
 	GENERATED_BODY()
 
 public:
@@ -29,6 +28,5 @@ private:
 	FTimerHandle FireRateTimerHandle;
 	float FireRate = 2.f;
 	void CheckFireCondition();
-	
-	bool InFireRange();
-};
+
+	bool InFireRange(); };
