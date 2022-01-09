@@ -21,8 +21,14 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	UPROPERTY(EditDefaultsOnly, BluePrintReadWrite, meta = (AllowPrivateAccess = true))
+	class ATank* Tank;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Combat", BluePrintReadWrite, meta = (AllowPrivateAccess = true))
 	float FireRange = 1000.f;
 
-	class ATank* Tank;
+	FTimerHandle FireRateTimerHandle;
+	float FireRate = 2.f;
+	void CheckFireCondition();
+	
+	bool InFireRange();
 };
