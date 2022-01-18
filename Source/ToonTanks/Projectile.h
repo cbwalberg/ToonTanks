@@ -20,4 +20,6 @@ protected:
 
 private:
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* ProjectileMesh; };
+	UStaticMeshComponent* ProjectileMesh; 
+	UPROPERTY(EditAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	class UProjectileMovementComponent* ProjectileMovementComp; };
