@@ -22,4 +22,13 @@ private:
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* ProjectileMesh; 
 	UPROPERTY(EditAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	class UProjectileMovementComponent* ProjectileMovementComp; };
+	class UProjectileMovementComponent* ProjectileMovementComp; 
+	
+	// OnHit MUST use this function signiture including UFUNCTION() declaration
+	UFUNCTION()
+	void OnHit(
+		UPrimitiveComponent* HitComp, 
+		AActor* OtherActor, 
+		UPrimitiveComponent* OtherComp, 
+		FVector NormalImpulse, 
+		const FHitResult& Hit); };
