@@ -19,12 +19,16 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* ProjectileMesh; 
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	float Damage = 50.f;
+
+	UPROPERTY(EditDefaultsOnly, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UStaticMeshComponent* ProjectileMesh;
+
 	UPROPERTY(EditAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	class UProjectileMovementComponent* ProjectileMovementComp; 
 	
-	// OnHit MUST use this function signiture including UFUNCTION() declaration
+	// Since this callback function is bound to the OnComponentHit delegate, it must take this exact function signiture
 	UFUNCTION()
 	void OnHit(
 		UPrimitiveComponent* HitComp, 

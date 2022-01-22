@@ -32,8 +32,12 @@ void ABasePawn::RotateTurret(FVector LookAtTarget) {
 	TurretMesh -> SetWorldRotation(LookAtRotation); }
 
 void ABasePawn::Fire() {
+	// Draw Sphere at Projectile Spawn Point
 	// DrawDebugSphere(GetWorld(), ProjectileSpawn -> GetComponentLocation(), 25.f, 12, FColor::Red, false, 3.f); 
-	GetWorld() -> SpawnActor<AProjectile>(
+
+	// "auto" allows compiler to determine type
+	auto Projectile = GetWorld() -> SpawnActor<AProjectile>(
 		ProjectileClass, 
 		ProjectileSpawn -> GetComponentLocation(), 
-		ProjectileSpawn -> GetComponentRotation()); }
+		ProjectileSpawn -> GetComponentRotation()); 
+	Projectile -> SetOwner(this); }

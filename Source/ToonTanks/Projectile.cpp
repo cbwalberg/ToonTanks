@@ -3,7 +3,10 @@
 
 #include "Projectile.h"
 
+#include "Components/StaticMeshComponent.h"
+#include "GameFramework/DamageType.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AProjectile::AProjectile() {
@@ -20,11 +23,19 @@ AProjectile::AProjectile() {
 // Called when the game starts or when spawned
 void AProjectile::BeginPlay() {
 	Super::BeginPlay();
-	// When this object hits another component, &AProjectile::OnHit
+	// When this object hits another component call &AProjectile::OnHit
 	ProjectileMesh -> OnComponentHit.AddDynamic(this, &AProjectile::OnHit); }
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComp,  AActor* OtherActor,  UPrimitiveComponent* OtherComp,  FVector NormalImpulse, const FHitResult& Hit) {
-	UE_LOG(LogTemp, Warning, TEXT("OnHit")); 
-	UE_LOG(LogTemp, Warning, TEXT("HitComp: %s"), *HitComp -> GetName());
-	UE_LOG(LogTemp, Warning, TEXT("OtherActor: %s"), *OtherActor -> GetName());
-	UE_LOG(LogTemp, Warning, TEXT("OtherComp: %s"), *OtherComp -> GetName());}
+	if (GetOwner() == nullptr) return;
+	if (OtherActor && OtherActor != this && OtherActor != GetOwner()) { // Ensure OtherActor exists and that Projectile doesn't collide with itself 
+		// Using basic damage so passing empty, default UDamageType class	
+		UGameplayStatics::ApplyDamage(
+			OtherActor,
+			Damage,
+			GetOwner() -> GetInstigatorController(),
+			this,
+			UDamageType::StaticClass()); 
+		
+		// Destroys this object
+		Destroy(); } }
