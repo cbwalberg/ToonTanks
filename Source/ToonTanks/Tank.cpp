@@ -27,7 +27,7 @@ void ATank::BeginPlay() {
 	Super::BeginPlay();
 
     // Cast APawn::GetController() return val from AController* to APlayerController*
-    PlayerControllerRef = Cast<APlayerController>(GetController()); }
+    TankPlayerController = Cast<APlayerController>(GetController()); }
 
 
 // Called to bind functionality to input
@@ -46,17 +46,24 @@ void ATank::Tick(float DeltaTime) {
     Super::Tick(DeltaTime);
 
     // Verify PlayerControllerRef != null
-    if (PlayerControllerRef) {
+    if (TankPlayerController) {
         // GetHitResultUnderCursor() assigns val to the OUT var OUT_MouseHitResult
         // on ECollisionChannel ECC_Visibility with complex tracing = false for performance
         FHitResult OUT_MouseHitResult;
-        PlayerControllerRef -> GetHitResultUnderCursor(ECC_Visibility, false, OUT_MouseHitResult);
+        TankPlayerController -> GetHitResultUnderCursor(ECC_Visibility, false, OUT_MouseHitResult);
 
         // RotateTurret() defined in BasePawn
         RotateTurret(OUT_MouseHitResult.ImpactPoint);
 
         // See the cursor
         DrawDebugSphere(GetWorld(), OUT_MouseHitResult.ImpactPoint, 7.5f, 12, FColor::Green, false, .01f); } }
+
+
+void ATank::HandleDestruction() {
+    Super::HandleDestruction();
+    // This hides the tank as opposed to destroying it, allowing the player to see through the camera even after death
+    SetActorHiddenInGame(true);
+    SetActorTickEnabled(false); }
 
 
 // Called on 'W' & 'S' key input

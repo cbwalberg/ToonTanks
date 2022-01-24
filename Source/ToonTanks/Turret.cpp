@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
 
+
 void ATurret::BeginPlay() {
     Super::BeginPlay();
 
@@ -21,6 +22,11 @@ void ATurret::Tick(float DeltaTime) {
     Super::Tick(DeltaTime);
 
     if (InFireRange()) RotateTurret(Tank -> GetActorLocation()); }
+
+
+void ATurret::HandleDestruction() {
+    Super::HandleDestruction();
+    Destroy(); }
 
 
 void ATurret::CheckFireCondition() {

@@ -20,12 +20,16 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	void HandleDestruction();
+
+	APlayerController* GetTankPlayerController() const { return TankPlayerController; }
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 private:
-	APlayerController* PlayerControllerRef;
+	APlayerController* TankPlayerController;
 	
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, meta = (AllowPrivateAccess = "true"))
 	float MoveSpeed = 200.f;

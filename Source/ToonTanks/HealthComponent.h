@@ -26,6 +26,8 @@ private:
 	UPROPERTY(EditAnywhere)
 	float MaxHealth = 100.f;
 	float Health = 0.f; 
+
+	class AToonTanksGameMode* ToonTanksGameMode;
 	
 	// Since this callback function is bound to the OnTakeAnyDamage delegate, it must take this exact function signiture
 	UFUNCTION()
