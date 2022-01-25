@@ -15,6 +15,16 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+	// BlueprintImplementableEvent functionality is defined in BP and as such cannot be private
+	// They don't need a function body defined in c++, but they can be called from c++
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartGame();
 	
 private:
-	class ATank* Tank; };
+	class ATank* Tank; 
+	class AToonTanksPlayerController* ToonTanksPlayerController; 
+	
+	float StartDelay = 3.f; 
+	
+	void HandleGameStart(); };

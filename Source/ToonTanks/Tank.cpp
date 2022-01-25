@@ -56,7 +56,8 @@ void ATank::Tick(float DeltaTime) {
         RotateTurret(OUT_MouseHitResult.ImpactPoint);
 
         // See the cursor
-        DrawDebugSphere(GetWorld(), OUT_MouseHitResult.ImpactPoint, 7.5f, 12, FColor::Green, false, .01f); } }
+        // DrawDebugSphere(GetWorld(), OUT_MouseHitResult.ImpactPoint, 7.5f, 12, FColor::Green, false, .01f);
+        } }
 
 
 void ATank::HandleDestruction() {
