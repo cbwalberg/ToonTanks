@@ -20,11 +20,16 @@ protected:
 	// They don't need a function body defined in c++, but they can be called from c++
 	UFUNCTION(BlueprintImplementableEvent)
 	void StartGame();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void GameOver(bool bWonGame);
 	
 private:
 	class ATank* Tank; 
 	class AToonTanksPlayerController* ToonTanksPlayerController; 
 	
-	float StartDelay = 3.f; 
+	float StartDelay = 3.f;
+	int32 TargetTurrets = 0; 
 	
-	void HandleGameStart(); };
+	void HandleGameStart();
+	int32 GetTargetTurretCount(); };
