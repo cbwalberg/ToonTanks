@@ -32,11 +32,18 @@ private:
  
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	class UCapsuleComponent* CapsuleComp;
+
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* BaseMesh;
+
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* TurretMesh;
+
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	USceneComponent* ProjectileSpawn;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Combat") 
-	TSubclassOf<class AProjectile> ProjectileClass; };
+	TSubclassOf<class AProjectile> ProjectileClass; 
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Combat")
+	class UParticleSystem* DeathEffect; };

@@ -6,6 +6,8 @@
 
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystem.h"
 // #include "DrawDebugHelpers.h"
 
 // Sets default values
@@ -28,7 +30,7 @@ ABasePawn::ABasePawn() {
 
 void ABasePawn::HandleDestruction() {
 	// Visual/Sound effects on death
-}
+	UGameplayStatics::SpawnEmitterAtLocation(this, DeathEffect, GetActorLocation(), GetActorRotation()); }
 
 void ABasePawn::RotateTurret(FVector LookAtTarget) {
 	FVector ToTarget = LookAtTarget - TurretMesh -> GetComponentLocation();
