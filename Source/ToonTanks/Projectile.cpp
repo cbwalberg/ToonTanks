@@ -7,6 +7,7 @@
 #include "GameFramework/DamageType.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystemComponent.h"
 
 // Sets default values
 AProjectile::AProjectile() {
@@ -18,7 +19,10 @@ AProjectile::AProjectile() {
 	
 	ProjectileMovementComp = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component")); 
 	ProjectileMovementComp -> MaxSpeed = 1300.f;
-	ProjectileMovementComp -> InitialSpeed = 1300.f; }
+	ProjectileMovementComp -> InitialSpeed = 1300.f; 
+	
+	TrailParticlesComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Trail Particles Component"));
+	TrailParticlesComponent -> SetupAttachment(ProjectileMesh); }
 
 // Called when the game starts or when spawned
 void AProjectile::BeginPlay() {
@@ -27,15 +31,15 @@ void AProjectile::BeginPlay() {
 	ProjectileMesh -> OnComponentHit.AddDynamic(this, &AProjectile::OnHit); }
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComp,  AActor* OtherActor,  UPrimitiveComponent* OtherComp,  FVector NormalImpulse, const FHitResult& Hit) {
-	if (GetOwner() == nullptr) return;
-	if (OtherActor && OtherActor != this && OtherActor != GetOwner()) { // Ensure OtherActor exists and that Projectile doesn't collide with itself 
+	auto MyOwner = GetOwner();
+	if (MyOwner == nullptr) return;
+	if (OtherActor && OtherActor != this && OtherActor != MyOwner) { // Ensure OtherActor exists and that Projectile doesn't collide with itself 
 		// Using basic damage so passing empty, default UDamageType class	
-		UGameplayStatics::ApplyDamage(
-			OtherActor,
-			Damage,
-			GetOwner() -> GetInstigatorController(),
-			this,
-			UDamageType::StaticClass()); 
+		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwner -> GetInstigatorController(), this, UDamageType::StaticClass()); 
 		
-		// Destroys this object
-		Destroy(); } }
+		if (HitParticles) {
+			// Creates particle effect	
+			UGameplayStatics::SpawnEmitterAtLocation(this, HitParticles, GetActorLocation(), GetActorRotation()); } }
+	
+	// Destroys this object
+	Destroy(); }

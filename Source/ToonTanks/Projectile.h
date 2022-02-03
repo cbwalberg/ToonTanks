@@ -26,7 +26,13 @@ private:
 	UStaticMeshComponent* ProjectileMesh;
 
 	UPROPERTY(EditAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	class UProjectileMovementComponent* ProjectileMovementComp; 
+	class UProjectileMovementComponent* ProjectileMovementComp;
+
+	UPROPERTY(EditAnywhere, BluePrintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	class UParticleSystem* HitParticles;
+
+	UPROPERTY(EditAnywhere, BluePrintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	class UParticleSystemComponent* TrailParticlesComponent; 
 	
 	// Since this callback function is bound to the OnComponentHit delegate, it must take this exact function signiture
 	UFUNCTION()
