@@ -64,7 +64,8 @@ void ATank::HandleDestruction() {
     Super::HandleDestruction();
     // This hides the tank as opposed to destroying it, allowing the player to see through the camera even after death
     SetActorHiddenInGame(true);
-    SetActorTickEnabled(false); }
+    SetActorTickEnabled(false); 
+    bAlive = false; }
 
 
 // Called on 'W' & 'S' key input

@@ -5,6 +5,7 @@
 
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/DamageType.h"
+#include "GameFramework/PlayerController.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
@@ -29,7 +30,9 @@ AProjectile::AProjectile() {
 void AProjectile::BeginPlay() {
 	Super::BeginPlay();
 	// When this object hits another component call &AProjectile::OnHit
-	ProjectileMesh -> OnComponentHit.AddDynamic(this, &AProjectile::OnHit); }
+	ProjectileMesh -> OnComponentHit.AddDynamic(this, &AProjectile::OnHit); 
+	if (LaunchSound) {
+		UGameplayStatics::PlaySoundAtLocation(this, LaunchSound, GetActorLocation()); } }
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComp,  AActor* OtherActor,  UPrimitiveComponent* OtherComp,  FVector NormalImpulse, const FHitResult& Hit) {
 	auto MyOwner = GetOwner();
@@ -37,10 +40,15 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp,  AActor* OtherActor,  UPri
 	if (OtherActor && OtherActor != this && OtherActor != MyOwner) { // Ensure OtherActor exists and that Projectile doesn't collide with itself 
 		// Using basic damage so passing empty, default UDamageType class	
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwner -> GetInstigatorController(), this, UDamageType::StaticClass()); 
-		
+		if (HitSound) {
+			UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation()); }
+
 		if (HitParticles) {
 			// Creates particle effect	
-			UGameplayStatics::SpawnEmitterAtLocation(this, HitParticles, GetActorLocation(), GetActorRotation()); } }
+			UGameplayStatics::SpawnEmitterAtLocation(this, HitParticles, GetActorLocation(), GetActorRotation()); }
+		
+		if (HitCameraShakeClass) {
+			GetWorld() -> GetFirstPlayerController() -> ClientStartCameraShake(HitCameraShakeClass); } }
 	
 	// Destroys this object
 	Destroy(); }

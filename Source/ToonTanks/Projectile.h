@@ -33,6 +33,15 @@ private:
 
 	UPROPERTY(EditAnywhere, BluePrintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	class UParticleSystemComponent* TrailParticlesComponent; 
+
+	UPROPERTY(EditAnywhere, BluePrintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	class USoundBase* LaunchSound;
+
+	UPROPERTY(EditAnywhere, BluePrintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	USoundBase* HitSound;
+
+	UPROPERTY(EditAnywhere, BluePrintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<class UCameraShakeBase> HitCameraShakeClass;
 	
 	// Since this callback function is bound to the OnComponentHit delegate, it must take this exact function signiture
 	UFUNCTION()

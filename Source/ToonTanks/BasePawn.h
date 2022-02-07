@@ -42,8 +42,14 @@ private:
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	USceneComponent* ProjectileSpawn;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Combat") 
+	UPROPERTY(EditDefaultsOnly, BluePrintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true")) 
 	TSubclassOf<class AProjectile> ProjectileClass; 
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Combat")
-	class UParticleSystem* DeathEffect; };
+	UPROPERTY(EditDefaultsOnly, BluePrintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	class UParticleSystem* DeathEffect; 
+	
+	UPROPERTY(EditDefaultsOnly, BluePrintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	class USoundBase* DeathSound; 
+	
+	UPROPERTY(EditDefaultsOnly, BluePrintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<class UCameraShakeBase> DeathCameraShakeClass; };

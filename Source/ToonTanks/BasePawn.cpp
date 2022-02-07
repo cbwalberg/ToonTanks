@@ -6,6 +6,7 @@
 
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
 // #include "DrawDebugHelpers.h"
@@ -30,7 +31,9 @@ ABasePawn::ABasePawn() {
 
 void ABasePawn::HandleDestruction() {
 	// Visual/Sound effects on death
-	UGameplayStatics::SpawnEmitterAtLocation(this, DeathEffect, GetActorLocation(), GetActorRotation()); }
+	if (DeathEffect) UGameplayStatics::SpawnEmitterAtLocation(this, DeathEffect, GetActorLocation(), GetActorRotation()); 
+	if (DeathSound) UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation()); 
+	if (DeathCameraShakeClass) GetWorld() -> GetFirstPlayerController() -> ClientStartCameraShake(DeathCameraShakeClass); }
 
 void ABasePawn::RotateTurret(FVector LookAtTarget) {
 	FVector ToTarget = LookAtTarget - TurretMesh -> GetComponentLocation();
@@ -43,7 +46,8 @@ void ABasePawn::Fire() {
 
 	// "auto" allows compiler to determine type
 	auto Projectile = GetWorld() -> SpawnActor<AProjectile>(
-		ProjectileClass, 
-		ProjectileSpawn -> GetComponentLocation(), 
-		ProjectileSpawn -> GetComponentRotation()); 
+		ProjectileClass,
+		ProjectileSpawn -> GetComponentLocation(),
+		ProjectileSpawn -> GetComponentRotation());
+
 	Projectile -> SetOwner(this); }

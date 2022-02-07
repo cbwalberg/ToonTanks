@@ -11,6 +11,8 @@ class TOONTANKS_API ATank : public ABasePawn {
 	GENERATED_BODY()
 
 public:
+	bool bAlive = true;
+
 	// Sets default values for this pawn's properties
 	ATank();
 

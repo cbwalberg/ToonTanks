@@ -30,7 +30,7 @@ void ATurret::HandleDestruction() {
 
 
 void ATurret::CheckFireCondition() {
-    if (InFireRange()) Fire(); }
+    if (Tank -> bAlive && InFireRange()) Fire(); }
 
 
 bool ATurret::InFireRange() {
